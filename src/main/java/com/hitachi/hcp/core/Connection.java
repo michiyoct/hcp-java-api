@@ -3,18 +3,15 @@ package com.hitachi.hcp.core;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import java.io.UnsupportedEncodingException;
 
 import java.util.Base64;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class Connection {
   private String namespace;
@@ -36,11 +33,11 @@ public class Connection {
     Base64.Encoder encoder = Base64.getEncoder();
     try {
       MessageDigest md = MessageDigest.getInstance("MD5");
-      md.update(password.getBytes());
+      md.update(this.password.getBytes());
 
       authHeader = encoder.encodeToString(this.username.getBytes()) + ":" + md.digest();
 
-      basePath = "https://" + namespace + "/" + tenant + "/" + host;
+      basePath = "https://" + this.namespace + "/" + this.tenant + "/" + this.host;
     } catch (NoSuchAlgorithmException nsae) {
       System.err.println(nsae);
     }
