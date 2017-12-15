@@ -86,7 +86,7 @@ public class HttpConnection implements IConnection {
       MessageDigest md = MessageDigest.getInstance("MD5");
       md.update(password.getBytes());
 
-      authHeader = "hcp-ns-auth: " + encoder.encodeToString(username.getBytes()) + ":" + md.digest();
+      authHeader = "hcp-ns-auth=" + encoder.encodeToString(username.getBytes()) + ":" + md.digest();
 
       basePath = "https://" + this.namespace + "/" + this.tenant + "/" + this.host;
     } catch (NoSuchAlgorithmException nsae) {
