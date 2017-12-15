@@ -19,44 +19,42 @@
  * limitations under the License.
  *
  ******************************************************************************/
-package com.hitachi.hcp.test;
-
-import com.hitachi.hcp.test.util.ConnectionManager;
+package com.hitachi.hcp.test.util;
 
 import com.hitachi.hcp.core.IConnection;
 import com.hitachi.hcp.core.HCPException;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+public class CreateObjectThread extends Thread {
 
-/**
- * Unit test for simple App.
- */
-public class CreateObjectTest extends TestCase {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public CreateObjectTest(String testName) {
-        super(testName);
+  private final IConnection connection;
+  private int min;
+  private int max;
+  private String content;
+
+  private boolean successful = false;
+
+  public CreateObjectThread(IConnection connection,int min,int max, String content) {
+    this.connection = connection;
+    this.min = min;
+    this.max = max;
+    this.content = content;
+  }
+
+  public void run() {
+    int i = 0;
+    try {
+      boolean success = true;
+      for (i = min;i <= max;i++) {
+        success = success & connection.createObject("/object" + i + ".txt",content).isSuccessful();
+      }
+      successful = success;
+    } catch (HCPException hcpe) {
+      System.err.println("Error creating object " + i);
+      hcpe.printStackTrace();
     }
+  }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite() {
-        return new TestSuite(CreateObjectTest.class);
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testCreateObject() throws HCPException {
-        IConnection conn = ConnectionManager.getConnection();
-        boolean success = conn.createObject("/CreateObjectTest.txt", "Baseic text file content here").isSuccessful();
-
-        assertTrue(success);
-    }
+  public boolean isSuccessful() {
+    return successful;
+  }
 }

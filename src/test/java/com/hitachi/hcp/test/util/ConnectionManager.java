@@ -19,44 +19,14 @@
  * limitations under the License.
  *
  ******************************************************************************/
-package com.hitachi.hcp.test;
+package com.hitachi.hcp.test.util;
 
-import com.hitachi.hcp.test.util.ConnectionManager;
-
+import com.hitachi.hcp.core.ConnectionFactory;
 import com.hitachi.hcp.core.IConnection;
 import com.hitachi.hcp.core.HCPException;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
-/**
- * Unit test for simple App.
- */
-public class CreateObjectTest extends TestCase {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public CreateObjectTest(String testName) {
-        super(testName);
-    }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite() {
-        return new TestSuite(CreateObjectTest.class);
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testCreateObject() throws HCPException {
-        IConnection conn = ConnectionManager.getConnection();
-        boolean success = conn.createObject("/CreateObjectTest.txt", "Baseic text file content here").isSuccessful();
-
-        assertTrue(success);
-    }
+public class ConnectionManager {
+  public static IConnection getConnection() throws HCPException {
+    return ConnectionFactory.create("default", "default", "localhost", "user", "pass",100);
+  }
 }

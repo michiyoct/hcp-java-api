@@ -21,6 +21,7 @@
  ******************************************************************************/
 package com.hitachi.hcp.test;
 
+import com.hitachi.hcp.test.util.CreateObjectThread;
 import com.hitachi.hcp.test.util.ConnectionManager;
 
 import com.hitachi.hcp.core.IConnection;
@@ -31,32 +32,40 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Unit test for simple App.
+ * Unit test for using multiple HCP connections in parallel
  */
-public class CreateObjectTest extends TestCase {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public CreateObjectTest(String testName) {
-        super(testName);
+public class CreateObjectsInParallelTest extends TestCase {
+  /**
+   * Create the test case
+   *
+   * @param testName name of the test case
+   */
+  public CreateObjectsInParallelTest(String testName) {
+    super(testName);
+  }
+
+  /**
+   * @return the suite of tests being tested
+   */
+  public static Test suite() {
+    return new TestSuite(CreateObjectsInParallelTest.class);
+  }
+
+  /**
+   * Rigourous Test :-)
+   */
+  public void testCreateObjectsInParallel() throws HCPException {
+    int perThread = 100;
+    int threads = 10;
+    for (int i = 0;i < threads;i++) {
+      IConnection conn = ConnectionManager.getConnection(); // one per thread for our testing purposes
+      CreateObjectThread thread = new CreateObjectThread(conn,i * perThread,((i + 1)*perThread)-1,"Wibble");
+      thread.run();
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite() {
-        return new TestSuite(CreateObjectTest.class);
-    }
+    // TODO wait for threads
+    // TODO ensure each completed successfully
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testCreateObject() throws HCPException {
-        IConnection conn = ConnectionManager.getConnection();
-        boolean success = conn.createObject("/CreateObjectTest.txt", "Baseic text file content here").isSuccessful();
-
-        assertTrue(success);
-    }
+    assertTrue(true);
+  }
 }
