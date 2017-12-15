@@ -193,7 +193,12 @@ public class HttpConnection implements IConnection {
           if (null != clusterTimeHeaders && clusterTimeHeaders.length > 0) {
             clusterTime = Long.valueOf(clusterTimeHeaders[0].getValue());
           }
-          cr = new CreateResponse(CreateResponse.Status.CREATED,location,hashValue,clusterTime);
+          Header[] versionIdHeaders = response.getHeaders("X-HCP-VersionId");
+          String versionId = null;
+          if (null != versionIdHeaders && versionIdHeaders.length>0) {
+            versionId = versionIdHeaders[0].getValue();
+          }
+          cr = new CreateResponse(CreateResponse.Status.CREATED,location,hashValue,clusterTime,versionId);
         } else if (status.getStatusCode() == 403) {
           // forbidden
           cr = new CreateResponse(CreateResponse.Status.FORBIDDEN,status.getReasonPhrase());

@@ -47,6 +47,8 @@ public class CreateResponse {
   private String hash = null;
   private long clusterTime = -1L;
 
+  private String versionId = null;
+
   /**
    * Creates a CreateResponse indicating failure
    * 
@@ -67,12 +69,13 @@ public class CreateResponse {
    * @param hash The SHA-256 hash value for the file
    * @param clusterTime The cluster creation time for the file
    */
-  public CreateResponse(Status status,String location,String hash,long clusterTime) {
+  public CreateResponse(Status status,String location,String hash,long clusterTime,String versionId) {
     this.status = status;
     this.location = location;
     this.hash = hash;
     this.clusterTime = clusterTime;
     this.success = true;
+    this.versionId = versionId;
   }
 
   /**
@@ -123,5 +126,13 @@ public class CreateResponse {
    */
   public long getClusterTime() {
     return clusterTime;
+  }
+
+  /**
+   * Returns the Version ID in HCP of the new object version, if versioning enabled.
+   * @return The version ID in HCP, or null if versioning not enabled
+   */
+  public String getVersionId() {
+    return versionId;
   }
 }
