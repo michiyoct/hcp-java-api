@@ -30,11 +30,16 @@ import org.apache.http.impl.client.CloseableHttpClient;
  * 
  * This class wraps high-level connection pooling functionality, and is thread safe.
  * 
+ * Currently this factory only produces HttpConnection instances, but in future will include
+ * a static method to set the protocol for all created connection instances. (To HTTP or H3)
+ * 
  * @author Adam Fowler <adam.fowler@hitachivantara.com>
  * @since 2017-12-15
  */
 public class ConnectionFactory {
   private static PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
+
+  // TODO add a static method here to set the default connection mechanism to either HTTP or H3 protocols
 
   /**
    * Creates a new IConnection instance using the provided server and authentication information
@@ -45,8 +50,24 @@ public class ConnectionFactory {
    * @param username The username for authentication (not held in plain text in RAM)
    * @param password The password for authentication (not held in plain text in RAM)
    */
-  public static IConnection create(String namespace,String tenant,String host,String username,String password) {
-    HttpConnection c = new HttpConnection(namespace,tenant,host,username,password);
+  public static IConnection create(String namespace, String tenant, String host, String username, String password) {
+    HttpConnection c = new HttpConnection(namespace, tenant, host, username, password, false);
+    return c;
+  }
+
+  /**
+   * Creates a new IConnection instance using the provided server and authentication information
+   * 
+   * @param namespace The HCP Namespace to use
+   * @param tenant The HCP Tenant to use
+   * @param host The hostname (not including namespace and tenant) to communicate with
+   * @param username The username for authentication (not held in plain text in RAM)
+   * @param password The password for authentication (not held in plain text in RAM)
+   * @param acceptSelfSigned Whether to allow the use of self signed (INSECURE) servers. Passing true makes you vulnerable to man-in-the-middle attacks, but is useful for testing.
+   */
+  public static IConnection create(String namespace, String tenant, String host, String username, String password,
+      boolean acceptSelfSigned) {
+    HttpConnection c = new HttpConnection(namespace, tenant, host, username, password, acceptSelfSigned);
     return c;
   }
 
@@ -59,10 +80,11 @@ public class ConnectionFactory {
    * @param username The username for authentication (not held in plain text in RAM)
    * @param password The password for authentication (not held in plain text in RAM)
    * @param maxConnections The maximum number of parallel connections to have open to the server
+   * @param acceptSelfSigned Whether to allow the use of self signed (INSECURE) servers. Passing true makes you vulnerable to man-in-the-middle attacks, but is useful for testing.
    */
-  public static IConnection create(String namespace,String tenant,String host,String username,String password,int maxConnections) {
+  public static IConnection create(String namespace,String tenant,String host,String username,String password,int maxConnections,boolean acceptSelfSigned) {
     cm.setDefaultMaxPerRoute(maxConnections);
-    HttpConnection c = new HttpConnection(namespace, tenant, host, username, password);
+    HttpConnection c = new HttpConnection(namespace, tenant, host, username, password, acceptSelfSigned);
     return c;
   }
 

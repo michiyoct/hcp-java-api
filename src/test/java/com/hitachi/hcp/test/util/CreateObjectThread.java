@@ -45,7 +45,7 @@ public class CreateObjectThread extends Thread {
     try {
       boolean success = true;
       for (i = min;i <= max;i++) {
-        success = success & connection.createObject("/object" + i + ".txt",content).isSuccessful();
+        success = success & connection.createObject("/batch/object" + i + ".txt",content).isSuccess();
       }
       successful = success;
     } catch (HCPException hcpe) {

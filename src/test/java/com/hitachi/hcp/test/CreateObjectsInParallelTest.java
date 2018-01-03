@@ -25,11 +25,15 @@ import com.hitachi.hcp.test.util.CreateObjectThread;
 import com.hitachi.hcp.test.util.ConnectionManager;
 
 import com.hitachi.hcp.core.IConnection;
+import com.hitachi.hcp.core.ListResponse;
+import com.hitachi.hcp.core.Entry;
 import com.hitachi.hcp.core.HCPException;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
+import java.util.List;
 
 /**
  * Unit test for using multiple HCP connections in parallel
@@ -55,7 +59,7 @@ public class CreateObjectsInParallelTest extends TestCase {
    * Rigourous Test :-)
    */
   public void testCreateObjectsInParallel() throws HCPException {
-    int perThread = 100;
+    int perThread = 10;
     int threads = 10;
     for (int i = 0;i < threads;i++) {
       IConnection conn = ConnectionManager.getConnection(); // one per thread for our testing purposes
@@ -67,5 +71,30 @@ public class CreateObjectsInParallelTest extends TestCase {
     // TODO ensure each completed successfully
 
     assertTrue(true);
+  }
+
+  public void testListObjects() throws HCPException {
+    System.out.println("==================================================");
+    System.out.println("CreateObjectsInParallelTest.testListObjects()");
+    IConnection conn = ConnectionManager.getConnection();
+    ListResponse resp = conn.listObjects( "/batch" ); // deliberately leaving the trailing / off so it is corrected by the API
+
+    // print out minimal system metadata
+    System.out.println("HCP Server used: " + resp.getServicedBy());
+    System.out.println("HCP Time:        " + resp.getTime());
+    System.out.println("HCP Request Id:  " + resp.getRequestId());
+    System.out.println("Was success?:    " + resp.isSuccess());
+    System.out.println("Status:          " + resp.getStatus());
+
+    System.out.println("Entries:-");
+    for (Entry entry: resp.getList()) {
+      System.out.println("  " + entry.getUrlName());
+    }
+    System.out.println("End of entries list");
+    
+    boolean success = resp.isSuccess();
+
+    System.out.println("==================================================");
+    assertTrue( success );
   }
 }

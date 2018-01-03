@@ -29,20 +29,7 @@ package com.hitachi.hcp.core;
  * @author Adam Fowler <adam.fowler@hitachivantara.com>
  * @since 2017-12-15
  */
-public class CreateResponse {
-  /**
-   * Represents the HCP response status.
-   */
-  public enum Status {
-    CREATED, CONFLICT, FORBIDDEN, TOO_LARGE, OTHER_FAILURE
-  }
-
-  private boolean success = true;
-
-  private Status status;
-
-  private String explanation = null;
-
+public class CreateResponse extends BaseResponse {
   private String location = null;
   private String hash = null;
   private long clusterTime = -1L;
@@ -50,15 +37,20 @@ public class CreateResponse {
   private String versionId = null;
 
   /**
+   * Creates a CreateResponse
+   */
+  public CreateResponse() {
+    super();
+  }
+  
+  /**
    * Creates a CreateResponse indicating failure
    * 
    * @param status The Status of the HCP Response
    * @param explanation The explanation of the failure
    */
   public CreateResponse(Status status,String explanation) {
-    this.status = status;
-    this.explanation = explanation;
-    this.success = false;
+    super(status,explanation);
   }
 
   /**
@@ -70,38 +62,10 @@ public class CreateResponse {
    * @param clusterTime The cluster creation time for the file
    */
   public CreateResponse(Status status,String location,String hash,long clusterTime,String versionId) {
-    this.status = status;
-    this.location = location;
+    super(status,"");
     this.hash = hash;
     this.clusterTime = clusterTime;
-    this.success = true;
     this.versionId = versionId;
-  }
-
-  /**
-   * Returns whether the creation command was successful or not
-   * @return If we were successful
-   */
-  public boolean isSuccessful() {
-    return success;
-  }
-
-  /**
-   * Returns the Status of the response
-   * 
-   * @see Status
-   * @return The Status of the response
-   */
-  public Status getStatus() {
-    return status;
-  }
-
-  /**
-   * For a failure, shows the explanation of the failure. null for success.
-   * @return The String explanation message for the failure
-   */
-  public String getExplanation() {
-    return explanation;
   }
 
   /**

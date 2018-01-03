@@ -13,7 +13,8 @@
       "taskName": "verify-offline",
       "type": "shell",
       "command": "mvn -B verify -Dcentral -e -o",
-      "group": "build"
+      "group": "build",
+      "problemMatcher": []
     },
     {
       "taskName": "test",

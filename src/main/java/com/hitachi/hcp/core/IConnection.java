@@ -71,7 +71,51 @@ public interface IConnection {
    */
   public CreateResponse createObject(String objectPath, Serializable fileContent) throws HCPException;
 
-  // TODO READ OBJECT
+  // READ OBJECT
+  /**
+   * Reads an object from HCP
+   * 
+   * @param objectPath The path on HCP of the object to read
+   * @return The response wrapper object, which contains a method to retrieve the InputStream
+   */
+  public ReadResponse readObject(String objectPath) throws HCPException;
+
+  // TODO read just a segment of the file given a byte offset
+
+  /**
+   * Reads just the metadata of an object, not its content
+   * 
+   * @param objectPath The path on HCP of the object to read
+   * @return The response wrapper object, which contains methods to retrieve the object's metadata
+   */
+  public ReadMetadataResponse readObjectMetadata(String objectPath) throws HCPException;
 
   // TODO DELETE OBJECT
+
+  /**
+   * Deletes the specified object from HCP
+   * 
+   * @param objectPath The path of the object to delete
+   */
+  public DeleteResponse deleteObject(String objectPath) throws HCPException;
+
+  // LIST OBJECTS
+
+  /**
+   * Lists all HCP objects within a folder.
+   * 
+   * @param folderPath The folder to list objects within
+   * @return A ListResponse object containing the response results, and a list of entries from the folder
+   */
+  public ListResponse listObjects(String folderPath) throws HCPException;
+
+  // TODO fetch HCP namespace information (statistics XML element, HCP Guide page 55, section 4.5.3)
+
+  // TODO fetch object version lists
+
+  // TODO fetch object versions
+
+  // TODO fetch custom metadata from objects
+
+  // TODO fetch namespace lists, statistics, permissions, and retention classes
 }

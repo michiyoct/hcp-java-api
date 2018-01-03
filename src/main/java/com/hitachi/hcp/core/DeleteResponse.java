@@ -2,7 +2,7 @@
  *
  * Pentaho Data Integration
  *
- * Copyright (C) 2002-2017 by Pentaho : http://www.pentaho.com
+ * Copyright (C) 2002-2018 by Pentaho : http://www.pentaho.com
  *
  *******************************************************************************
  *
@@ -19,16 +19,27 @@
  * limitations under the License.
  *
  ******************************************************************************/
-package com.hitachi.hcp.test.util;
+package com.hitachi.hcp.core;
 
-import com.hitachi.hcp.core.ConnectionFactory;
-import com.hitachi.hcp.core.IConnection;
-import com.hitachi.hcp.core.HCPException;
-
-public class ConnectionManager {
-  public static IConnection getConnection() throws HCPException {
-    // WARNING - Pass FALSE as the last parameter for real solutions - else you are not validating the server, and would
-    //           be prone to man in the middle attacks!
-    return ConnectionFactory.create( "ns01", "pdi", "hcp01.coe.net", "admin", "PD!42017", 100, true );
+/**
+ * Represents the delete response from the server for ease of use in applications.
+ * 
+ * Designed to be protocol (HTTP/H3) independent.
+ * 
+ * @author Adam Fowler <adam.fowler@hitachivantara.com>
+ * @since 2018-01-03
+ */
+public class DeleteResponse extends BaseResponse {
+  
+  /**
+   * Creates a DeleteResponse
+   */
+  public DeleteResponse() {
+    super();
   }
+
+  public DeleteResponse(Status status,String explanation) {
+    super(status, explanation);
+  }
+
 }
