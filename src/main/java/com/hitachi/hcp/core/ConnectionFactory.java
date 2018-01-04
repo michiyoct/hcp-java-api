@@ -33,8 +33,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
  * Currently this factory only produces HttpConnection instances, but in future will include
  * a static method to set the protocol for all created connection instances. (To HTTP or H3)
  * 
- * @author Adam Fowler <adam.fowler@hitachivantara.com>
- * @since 2017-12-15
+ * @author Adam Fowler {@literal <adam.fowler@hitachivantara.com>}
+ * @since 1.0 2017-12-15
  */
 public class ConnectionFactory {
   private static PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
@@ -49,6 +49,7 @@ public class ConnectionFactory {
    * @param host The hostname (not including namespace and tenant) to communicate with
    * @param username The username for authentication (not held in plain text in RAM)
    * @param password The password for authentication (not held in plain text in RAM)
+   * @return A connection instance with the requisite configuration
    */
   public static IConnection create(String namespace, String tenant, String host, String username, String password) {
     HttpConnection c = new HttpConnection(namespace, tenant, host, username, password, false);
@@ -64,6 +65,7 @@ public class ConnectionFactory {
    * @param username The username for authentication (not held in plain text in RAM)
    * @param password The password for authentication (not held in plain text in RAM)
    * @param acceptSelfSigned Whether to allow the use of self signed (INSECURE) servers. Passing true makes you vulnerable to man-in-the-middle attacks, but is useful for testing.
+   * @return A connection instance with the requisite configuration
    */
   public static IConnection create(String namespace, String tenant, String host, String username, String password,
       boolean acceptSelfSigned) {
@@ -81,6 +83,7 @@ public class ConnectionFactory {
    * @param password The password for authentication (not held in plain text in RAM)
    * @param maxConnections The maximum number of parallel connections to have open to the server
    * @param acceptSelfSigned Whether to allow the use of self signed (INSECURE) servers. Passing true makes you vulnerable to man-in-the-middle attacks, but is useful for testing.
+   * @return A connection instance with the requisite configuration
    */
   public static IConnection create(String namespace,String tenant,String host,String username,String password,int maxConnections,boolean acceptSelfSigned) {
     cm.setDefaultMaxPerRoute(maxConnections);

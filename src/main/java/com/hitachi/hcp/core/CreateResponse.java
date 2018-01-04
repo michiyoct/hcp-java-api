@@ -26,8 +26,8 @@ package com.hitachi.hcp.core;
  * 
  * Designed to be protocol (HTTP/H3) independent.
  * 
- * @author Adam Fowler <adam.fowler@hitachivantara.com>
- * @since 2017-12-15
+ * @author Adam Fowler {@literal <adam.fowler@hitachivantara.com>}
+ * @since 1.0 2017-12-15
  */
 public class CreateResponse extends BaseResponse {
   private String location = null;
@@ -60,6 +60,7 @@ public class CreateResponse extends BaseResponse {
    * @param location The file's location on the HCP Server
    * @param hash The SHA-256 hash value for the file
    * @param clusterTime The cluster creation time for the file
+   * @param versionId The version Id of the object created
    */
   public CreateResponse(Status status,String location,String hash,long clusterTime,String versionId) {
     super(status,"");

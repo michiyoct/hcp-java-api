@@ -75,8 +75,8 @@ import java.io.Serializable;
  * hold a copy of this connection object for it's lifecycle. This class will manage the 
  * underlying connection pooling and claiming/releasing of connections as required by its methods.
  * 
- * @author Adam Fowler <adam.fowler@hitachivantara.com>
- * @since 2017-12-08
+ * @author Adam Fowler {@literal <adam.fowler@hitachivantara.com>}
+ * @since 1.0 2017-12-08
  */
 public class HttpConnection implements IConnection {
   private String namespace;

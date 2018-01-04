@@ -26,8 +26,8 @@ package com.hitachi.hcp.core;
  * 
  * Designed to be protocol (HTTP/H3) independent.
  * 
- * @author Adam Fowler <adam.fowler@hitachivantara.com>
- * @since 2018-01-03
+ * @author Adam Fowler {@literal <adam.fowler@hitachivantara.com>}
+ * @since 1.0 2018-01-03
  */
 public class ReadMetadataResponse extends BaseResponse {
   protected String type;
@@ -118,6 +118,7 @@ public class ReadMetadataResponse extends BaseResponse {
 
   /**
    * Returns the ingestTime
+   * @return The ingestion time for this object
    */
   public Long getIngestTime() {
     return ingestTime;

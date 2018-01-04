@@ -24,8 +24,8 @@ package com.hitachi.hcp.core;
 /**
  * Represents a HCP Exception from the server. Wraps a message and a root cause stack track, if available.
  * 
- * @author Adam Fowler <adam.fowler@hitachivantara.com>
- * @since 2017-12-08
+ * @author Adam Fowler {@literal <adam.fowler@hitachivantara.com>}
+ * @since 1.0 2017-12-08
  */
 public class HCPException extends Exception {
   static final long serialVersionUID = 1;

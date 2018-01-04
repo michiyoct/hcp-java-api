@@ -21,6 +21,13 @@
       "type": "shell",
       "command": "mvn -B test -Dcentral",
       "group": "test"
+    },
+    {
+      "taskName": "javadoc",
+      "type": "shell",
+      "command": "mvn javadoc:jar",
+      "group": "build",
+      "problemMatcher": []
     }
   ]
 }

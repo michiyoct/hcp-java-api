@@ -30,8 +30,8 @@ import java.io.Serializable;
  * 
  * The underlying implementation could use HTTP, H3, or any other HCP supported protocol in future
  * 
- * @author Adam Fowler <adam.fowler@hitachivantara.com>
- * @since 2017-12-15
+ * @author Adam Fowler {@literal <adam.fowler@hitachivantara.com>}
+ * @since 1.0 2017-12-15
  */
 public interface IConnection {
   // CREATE OBJECT
@@ -41,6 +41,7 @@ public interface IConnection {
    * @param objectPath The path on HCP of the object to create
    * @param fileContent The String textual content of the file to create
    * @return The response wrapper object
+   * @throws HCPException If any problems occur with the underlying connection mechanism during the call.
    */
   public CreateResponse createObject(String objectPath, String fileContent) throws HCPException;
 
@@ -50,6 +51,7 @@ public interface IConnection {
    * @param objectPath The path on HCP of the object to create
    * @param fileContent The File which holds the content of the file to create
    * @return The response wrapper object
+   * @throws HCPException If any problems occur with the underlying connection mechanism during the call.
    */
   public CreateResponse createObject(String objectPath, File fileContent) throws HCPException;
 
@@ -59,6 +61,7 @@ public interface IConnection {
    * @param objectPath The path on HCP of the object to create
    * @param fileContent The InputStream containing the content of the file to create
    * @return The response wrapper object
+   * @throws HCPException If any problems occur with the underlying connection mechanism during the call.
    */
   public CreateResponse createObject(String objectPath, InputStream fileContent) throws HCPException;
 
@@ -68,6 +71,7 @@ public interface IConnection {
    * @param objectPath The path on HCP of the object to create
    * @param fileContent The Serializable Java object representing content of the file to create
    * @return The response wrapper object
+   * @throws HCPException If any problems occur with the underlying connection mechanism during the call.
    */
   public CreateResponse createObject(String objectPath, Serializable fileContent) throws HCPException;
 
@@ -77,6 +81,7 @@ public interface IConnection {
    * 
    * @param objectPath The path on HCP of the object to read
    * @return The response wrapper object, which contains a method to retrieve the InputStream
+   * @throws HCPException If any problems occur with the underlying connection mechanism during the call.
    */
   public ReadResponse readObject(String objectPath) throws HCPException;
 
@@ -87,6 +92,7 @@ public interface IConnection {
    * 
    * @param objectPath The path on HCP of the object to read
    * @return The response wrapper object, which contains methods to retrieve the object's metadata
+   * @throws HCPException If any problems occur with the underlying connection mechanism during the call.
    */
   public ReadMetadataResponse readObjectMetadata(String objectPath) throws HCPException;
 
@@ -96,6 +102,8 @@ public interface IConnection {
    * Deletes the specified object from HCP
    * 
    * @param objectPath The path of the object to delete
+   * @return The deletion response object with the results of this call
+   * @throws HCPException If any problems occur with the underlying connection mechanism during the call.
    */
   public DeleteResponse deleteObject(String objectPath) throws HCPException;
 
@@ -106,6 +114,7 @@ public interface IConnection {
    * 
    * @param folderPath The folder to list objects within
    * @return A ListResponse object containing the response results, and a list of entries from the folder
+   * @throws HCPException If any problems occur with the underlying connection mechanism during the call.
    */
   public ListResponse listObjects(String folderPath) throws HCPException;
 

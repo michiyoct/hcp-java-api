@@ -28,8 +28,8 @@ import java.io.InputStream;
  * 
  * Designed to be protocol (HTTP/H3) independent.
  * 
- * @author Adam Fowler <adam.fowler@hitachivantara.com>
- * @since 2018-01-03
+ * @author Adam Fowler {@literal <adam.fowler@hitachivantara.com>}
+ * @since 1.0 2018-01-03
  */
 public class BaseResponse {
   protected Long contentLength = 0L;
