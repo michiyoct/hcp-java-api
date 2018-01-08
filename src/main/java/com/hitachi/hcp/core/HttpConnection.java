@@ -285,6 +285,7 @@ public class HttpConnection implements IConnection {
         
         if (200 == status) {
           // read metadata
+          populateMinimumSystemMetadata(rr, response);
           populateSystemMetadata(rr,response);
 
           // read content

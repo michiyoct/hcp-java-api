@@ -10,6 +10,13 @@
       "group": "build"
     },
     {
+      "taskName": "deploy",
+      "type": "shell",
+      "command": "mvn clean deploy -e `-Dmaven.test.skip=true",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
       "taskName": "verify-offline",
       "type": "shell",
       "command": "mvn -B verify -Dcentral -e -o",
