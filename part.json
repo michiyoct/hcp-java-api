@@ -1,0 +1,61 @@
+{
+  "identifier": "hcp-java-api",
+  "title": "HCP Java API",
+  "description": "Hitachi Content Platform Java API wrapper for HCP Rest API",
+  "version": "1.0.0",
+  "type": "maven",
+  "elements": [
+    "other"
+  ],
+  "other-elements": "Maven",
+  "pentaho-minimum-version": "8.0",
+  "pentaho-maximum-version": "none",
+  "data-sources": [
+    "rest-other"
+  ],
+  "other-data-sources": "Hitachi Content Platform",
+  "deployment-environments": [
+    "local"
+  ],
+  "in-pentaho-demo-vm-version": "none",
+  "date-created": "2018-01-10",
+  "date-updated": "2018-01-10",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pentaho-SE-EMEA-APAC/hcp-java-api.git",
+    "public": "true"
+  },
+  "tags": [
+    "hcp",
+    "rest",
+    "java",
+    "api"
+  ],
+  "license": "Apache-2.0",
+  "primary-owner": {
+    "name": "Adam Fowler",
+    "email": "adam.fowler@hitachivantara.com",
+    "twitter": "@adamfowleruk",
+    "homepage": "http://adamfowler.org/",
+    "github": "adamfowleruk"
+  },
+  "backup-owners": [],
+  "antiquated": "false",
+  "needs-new-owner": "false",
+  "new-owner-information": "",
+  "documentation": {
+    "homepage": "README.md",
+    "install": "README.md",
+    "errata": "https://github.com/Pentaho-SE-EMEA-APAC/hcp-java-api/issues",
+    "readme": "README.md",
+    "script": "",
+    "video": ""
+  },
+  "dependencies": {
+    "part": "^1.0.0"
+  },
+  "layout": "maven",
+  "languages": [
+    "en"
+  ]
+}
